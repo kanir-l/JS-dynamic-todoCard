@@ -11,14 +11,29 @@
 </head>
 <body>
     <h1 class="head-text">The Todo Card</h1>
-    <div>
+    <div class="task-container">
         <h2 class="topic-text">All task</h2>
 
         <%for(let i=0; i<data.length; i++) {%>
-            <div>
+            <div class="task-card">
                 <%= data[i].task %> 
                 <a href="/edit/<%=data[i]._id%>">Edit</a>
                 <a href="/delete/<%=data[i]._id%>">Delete</a>
+            </div> <!--To show some data, need to use = after % for EJS--> 
+        <%}%>
+
+        <%- include('addtask.ejs')%> <!--To import some other file, need to use - after % for EJS-->
+
+        <%- include('error.ejs')%> <!--To import some other file, need to use - after % for EJS-->
+    </div>
+    <div class="finish-container"></div>
+        <h2 class="topic-text">All task</h2>
+
+        <%for(let i=0; i<data.length; i++) {%>
+            <div class="task-card">
+                <%=data[i].task %>
+                <a class="edit-button" href="/edit/<%=data[i]._id%>">Edit</a>
+                <a class="delete-button" href="/delete/<%=data[i]._id%>">Delete</a>
             </div> <!--To show some data, need to use = after % for EJS--> 
         <%}%>
 
