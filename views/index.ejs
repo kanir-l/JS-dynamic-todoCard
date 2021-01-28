@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Mallanna&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Todo Card</title>
+</head>
+<body>
+    <h1 class="head-text">The Todo Card</h1>
+    <div>
+        <h2 class="topic-text">All task</h2>
+
+        <%for(let i=0; i<data.length; i++) {%>
+            <div>
+                <%= data[i].task %> 
+                <a href="/edit/<%=data[i]._id%>">Edit</a>
+                <a href="/delete/<%=data[i]._id%>">Delete</a>
+            </div> <!--To show some data, need to use = after % for EJS--> 
+        <%}%>
+
+        <%- include('addtask.ejs')%> <!--To import some other file, need to use - after % for EJS-->
+
+        <%- include('error.ejs')%> <!--To import some other file, need to use - after % for EJS-->
+    </div>
+</body>
+</html>
