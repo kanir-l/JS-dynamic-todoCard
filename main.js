@@ -5,7 +5,9 @@ const bodyParser = require('body-parser') // read ejs
 const todoCard = require('./models/cardSchema.js')
 const router = require('./routes/todoRoute.js')
 const nodeSass = require('node-sass-middleware')
-require('dotenv').config();
+require('dotenv').config()
+//let DATABASE = process.env.DB_MONGO_URL
+
 
 //Use it
 const app = express()
@@ -24,7 +26,7 @@ app.use(nodeSass({
 app.use('/', router)
 
 //CONNECT TO MONGO DATABASE
-mongoose.connect('mongodb+srv://fed20mi:fed20mi@cluster0.dz7ob.mongodb.net/todoCard?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DB_MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, (err)=> {

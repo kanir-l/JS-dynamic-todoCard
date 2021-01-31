@@ -42,10 +42,12 @@ router.get('/edit/:id', async (req, res)=>{
 }) 
 
 // POST(EDIT) REQUEST - SAVE THE EDIT PAGE:ID TO REDIRECT BACK TO THE /
-router.post('/edit', async (req, res)=>{
+router.post('/edit/:id', async (req, res)=>{
     try {
-        await todoCard.updateOne({_id: req.body.id}, {
-            task: req.body.task
+        await todoCard.updateOne({_id: req.params.id}, {
+            $set: {
+                task: req.body.task
+            }
         })
         res.redirect('/')
     }

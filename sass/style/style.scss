@@ -1,8 +1,111 @@
 body {
+
+    background: #f3f3f3;
     font-family: 'Mallanna', sans-serif;
+    margin: 0;
 
     h1.head-text {
-        color: pink;
-        background: green;
+        font-size: 24px;
+        height: 60px;
+        line-height: 60px;
+        color: #ffffff;
+        background: #3f3f3f;
+        text-align: center;
+        margin: 0;
+    }
+
+    h2.topic-text {
+        font-size: 20px;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        color: #888888;   
+        background: #f3f3f3;   
+        text-align: center;
+        margin: 0;
+    }
+
+    .column {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        background: #f3f3f3; 
+        
+        .alltask-container {
+            width: 90%;
+            max-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            padding:20px 0 20px 0;
+            border-top: 10px solid #c92e48;
+            overflow-x: hidden; 
+            overflow-y: auto; 
+
+            .task-card {
+                width: 80%;
+                min-height: 120px;
+                border: 1px solid #888888; 
+                border-radius: 10px;  
+                margin: 10px;
+
+                .task-name {
+                    font-size: 16px;
+                    color: #888888;
+                    margin-left: 10px;
+                }
+
+                a.edit-button {
+                    color: #000000;
+                }
+            }
+        }
+
+        .inprocess-container {
+            width: 90%;
+            max-height: 100vh;
+            border-top: 10px solid #f34f39;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            padding:20px 0 20px 0;
+            overflow-x: hidden; 
+            overflow-y: auto; 
+        }
+
+        .finished-container {
+            width: 90%;
+            max-height: 100vh;
+            border-top: 10px solid #22d6be;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            padding:20px 0 20px 0;
+            overflow-x: hidden; 
+            overflow-y: auto; 
+
+
+            h2.topic-text {
+                font-size: 20px;
+                width: 90%;
+                height: 60px;
+                line-height: 60px;
+                color: #3f3f3f;   
+                background: #f3f3f3;   
+                text-align: center;
+                text-transform: uppercase;
+                margin: 0;
+            }
+        }
     }
 }

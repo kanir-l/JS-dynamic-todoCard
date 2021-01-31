@@ -11,20 +11,42 @@
 </head>
 <body>
     <h1 class="head-text">The Todo Card</h1>
-    <div>
-        <h2 class="topic-text">All task</h2>
 
-        <%for(let i=0; i<data.length; i++) {%>
-            <div>
-                <%= data[i].task %> 
-                <a href="/edit/<%=data[i]._id%>">Edit</a>
-                <a href="/delete/<%=data[i]._id%>">Delete</a>
-            </div> <!--To show some data, need to use = after % for EJS--> 
-        <%}%>
+    <div class="container">
+       <div class="column" >
+            <h2 class="topic-text">All task</h2>
+            <div class="alltask-container">
+            <%for(let i=0; i<data.length; i++) {%>
+                <div class="task-card">
+                    <p class="task-name <%= data[i].task.class %> ">
+                        <%= data[i].task %> 
+                    </p>
+                
+                    <a href="/edit/<%=data[i]._id%>" class=“edit-button”>Edit</a>
+                    <a href="/delete/<%=data[i]._id%>">Delete</a>
+                </div> <!--To show some data, need to use = after % for EJS--> 
+            <%}%>
+            </div>
+            <%- include('addtask.ejs') %><!--To import some other file, need to use - after % for EJS-->
+            <%- include('error.ejs')%> <!--To import some other file, need to use - after % for EJS-->
+        </div>
 
-        <%- include('addtask.ejs')%> <!--To import some other file, need to use - after % for EJS-->
+        <div class="column">
 
-        <%- include('error.ejs')%> <!--To import some other file, need to use - after % for EJS-->
+            <h2 class="topic-text">In the process</h2>
+            <div class="inprocess-container">
+            
+            </div>
+        </div>
+    
+
+        <div class="column">
+
+            <h2 class="topic-text">Finished task</h2>
+            <div class="finished-container">
+            
+            </div>
+        </div>
     </div>
 </body>
 </html>

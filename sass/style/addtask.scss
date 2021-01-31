@@ -1,0 +1,29 @@
+form {
+    width: 75%;
+    display: inline;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    input {
+        width: 75%;
+        height: 45px;
+        background: #808080;
+        border: none;
+        border-radius: 3px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    input::placeholder {
+        color: #ffffff;
+    }
+
+    button {
+        width: 22%;
+        height: 45px;
+        color: #ffffff;
+        background: #c92e48;
+        border: none;
+        border-radius: 3px;
+    }
+}
