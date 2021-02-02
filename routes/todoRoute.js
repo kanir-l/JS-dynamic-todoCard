@@ -6,7 +6,10 @@ const router = express.Router() // mini app
 router.get('/', async (req, res)=>{
     try{
         const data = await todoCard.find()
-        res.render('index.ejs', {data: data, error:" "})
+        const todos = data.filter((card)=>card.status==="todo")
+        const doings = data.filter((card)=>card.status==="doing")
+        const dones = data.filter((card)=>card.status==="done")
+        res.render('index.ejs', {todos: todos, doings: doings, dones: dones, error:" "})
     }  
     catch(err){
         const error = err
@@ -28,6 +31,54 @@ router.post('/', async (req, res)=>{
         res.render('error.ejs', {error: error})
     }
 })
+
+// GET REQUEST - CLINK ON Todo STATUS LINK
+router.get('/todo/:id', async (req, res)=>{
+    try {
+        await todoCard.updateOne({_id: req.params.id}, {
+            $set: {
+                status: "todo"
+            }
+        })
+        res.redirect('/')
+    }
+    catch(err){
+        const error = err
+        res.render('error.ejs', {error: error})
+    }
+}) 
+
+// GET REQUEST - CLINK ON Doing STATUS LINK
+router.get('/doing/:id', async (req, res)=>{
+    try {
+        await todoCard.updateOne({_id: req.params.id}, {
+            $set: {
+                status: "doing"
+            }
+        })
+        res.redirect('/')
+    }
+    catch(err){
+        const error = err
+        res.render('error.ejs', {error: error})
+    }
+}) 
+
+// GET REQUEST - CLINK ON Done STATUS LINK
+router.get('/done/:id', async (req, res)=>{
+    try {
+        await todoCard.updateOne({_id: req.params.id}, {
+            $set: {
+                status: "done"
+            }
+        })
+        res.redirect('/')
+    }
+    catch(err){
+        const error = err
+        res.render('error.ejs', {error: error})
+    }
+}) 
 
 // GET(EDIT) REQUEST - EDIT DATA FROM EDIT PAGE:ID
 router.get('/edit/:id', async (req, res)=>{
@@ -69,5 +120,6 @@ router.get('/delete/:id', async (req, res)=>{
         res.render('error.ejs', {error: error})
     }
 }) 
+
 
 module.exports = router
