@@ -14,16 +14,34 @@
 
     <div class="container">
        <div class="column" >
-            <h2 class="topic-text">All task</h2>
-            <div class="alltask-container">
-            <%for(let i=0; i<data.length; i++) {%>
+            <h2 class="topic-text">Todo</h2>
+            <div class="todo-container">
+            <%for(let i=0; i<todos.length; i++) {%>
                 <div class="task-card">
-                    <p class="task-name <%= data[i].task.class %> ">
-                        <%= data[i].task %> 
+                    <p class="task-name <%= todos[i].task.class %> ">
+                        <%= todos[i].task %>
                     </p>
                 
-                    <a href="/edit/<%=data[i]._id%>" class=“edit-button”>Edit</a>
-                    <a href="/delete/<%=data[i]._id%>">Delete</a>
+                    <div class="edit-delete">
+                        <a href="/edit/<%=todos[i]._id%>" class=“edit-button”><img src="/img/edit_icon.png"></a>
+                        <a href="/delete/<%=todos[i]._id%>" class="delete-button"><img src="/img/delete_icon.png"></a>
+                    </div>
+
+                    <div class="status">
+                        <a href="/todo/<%=todos[i]._id%>">
+                            <input type="radio" id="todo<%=todos[i]._id%>" name="tasks[<%=todos[i]._id%>].status" value="todo" checked>
+                            <label class="todo" for="todo<%=todos[i]._id%>" a href="/todo/<%=todos[i]._id%>"></label>
+                        </a>
+                        <a href="/doing/<%=todos[i]._id%>">
+                            <input type="radio" id="doing<%=todos[i]._id%>" name="tasks[<%=todos[i]._id%>].status" value="doing">
+                            <label class="doing" for="doing<%=todos[i]._id%>" a href="/doing/<%=todos[i]._id%>"></label>
+                        </a>
+                        <a href="/done/<%=todos[i]._id%>">
+                            <input type="radio" id="done<%=todos[i]._id%>" name="tasks[<%=todos[i]._id%>].status" value="done">
+                            <label class="done" for="done<%=todos[i]._id%>" a href="/done/<%=todos[i]._id%>"></label>
+                        </a>
+                    </div>
+                    
                 </div> <!--To show some data, need to use = after % for EJS--> 
             <%}%>
             </div>
@@ -32,19 +50,71 @@
         </div>
 
         <div class="column">
-
-            <h2 class="topic-text">In the process</h2>
-            <div class="inprocess-container">
-            
+            <h2 class="topic-text">Doing</h2>
+            <div class="doing-container">
+                <%for(let i=0; i<doings.length; i++) {%>
+                    <div class="task-card">
+                        <p class="task-name <%= doings[i].task.class %> ">
+                            <%= doings[i].task %>
+                        </p>
+                    
+                        <div class="edit-delete">
+                            <a href="/edit/<%=doings[i]._id%>" class=“edit-button”><img src="/img/edit_icon.png"></a>
+                            <a href="/delete/<%=doings[i]._id%>" class="delete-button"><img src="/img/delete_icon.png"></a>
+                        </div>
+    
+                        <div class="status">
+                            <a href="/todo/<%=doings[i]._id%>">
+                                <input type="radio" id="todo<%=doings[i]._id%>" name="tasks[<%=doings[i]._id%>].status" value="todo" checked>
+                                <label class="todo" for="todo<%=doings[i]._id%>" a href="/todo/<%=doings[i]._id%>"></label>
+                            </a>
+                            <a href="/doing/<%=doings[i]._id%>">
+                                <input type="radio" id="doing<%=doings[i]._id%>" name="tasks[<%=doings[i]._id%>].status" value="doing">
+                                <label class="doing" for="doing<%=doings[i]._id%>" a href="/doing/<%=doings[i]._id%>"></label>
+                            </a>
+                            <a href="/done/<%=doings[i]._id%>">
+                                <input type="radio" id="done<%=doings[i]._id%>" name="tasks[<%=doings[i]._id%>].status" value="done">
+                                <label class="done" for="done<%=doings[i]._id%>" a href="/done/<%=doings[i]._id%>"></label>
+                            </a>
+                        </div>
+                        
+                    </div> <!--To show some data, need to use = after % for EJS--> 
+                <%}%>
             </div>
         </div>
     
 
         <div class="column">
-
-            <h2 class="topic-text">Finished task</h2>
-            <div class="finished-container">
-            
+            <h2 class="topic-text">Done</h2>
+            <div class="done-container">
+                <%for(let i=0; i<dones.length; i++) {%>
+                    <div class="task-card">
+                        <p class="task-name <%= dones[i].task.class %> ">
+                            <%= dones[i].task %>
+                        </p>
+                    
+                        <div class="edit-delete">
+                            <a href="/edit/<%=dones[i]._id%>" class=“edit-button”><img src="/img/edit_icon.png"></a>
+                            <a href="/delete/<%=dones[i]._id%>" class="delete-button"><img src="/img/delete_icon.png"></a>
+                        </div>
+    
+                        <div class="status">
+                            <a href="/todo/<%=dones[i]._id%>">
+                                <input type="radio" id="todo<%=dones[i]._id%>" name="tasks[<%=dones[i]._id%>].status" value="todo" checked>
+                                <label class="todo" for="todo<%=dones[i]._id%>" a href="/todo/<%=dones[i]._id%>"></label>
+                            </a>
+                            <a href="/doing/<%=dones[i]._id%>">
+                                <input type="radio" id="doing<%=dones[i]._id%>" name="tasks[<%=dones[i]._id%>].status" value="doing">
+                                <label class="doing" for="doing<%=dones[i]._id%>" a href="/doing/<%=dones[i]._id%>"></label>
+                            </a>
+                            <a href="/done/<%=dones[i]._id%>">
+                                <input type="radio" id="done<%=dones[i]._id%>" name="tasks[<%=dones[i]._id%>].status" value="done">
+                                <label class="done" for="done<%=dones[i]._id%>" a href="/done/<%=dones[i]._id%>"></label>
+                            </a>
+                        </div>
+                        
+                    </div> <!--To show some data, need to use = after % for EJS--> 
+                <%}%>
             </div>
         </div>
     </div>
