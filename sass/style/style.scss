@@ -1,7 +1,7 @@
 body {
 
     background: #f3f3f3;
-    font-family: 'Mallanna', sans-serif;
+    font-family: 'Raleway', sans-serif;
     margin: 0;
 
     h1.head-text {
@@ -46,7 +46,7 @@ body {
             align-items: center;
             margin: 20px;
             padding:20px 0 20px 0;
-            border-top: 10px solid #c92e48;
+            border-top: 10px solid #c25264;
             overflow-x: hidden; 
             overflow-y: auto; 
 
@@ -60,6 +60,7 @@ body {
                     font-size: 16px;
                     color: #888888;
                     margin-left: 10px;
+                    margin-right: 10px;
                 }
 
                 .edit-delete {
@@ -75,13 +76,17 @@ body {
                     border-top: 1px solid #888888;
                     height: 30px;
 
+                    a {
+                        text-decoration: none;
+                    }
+
                     .todo {
                         display: inline-block;
                         width: 60px;
                         height: 10px;
                         line-height: 10px;
-                        background: #d81636;
-                        color: #d81636;
+                        background: #c25264;
+                        color: #c25264;
                     }
                   
                     .doing {
