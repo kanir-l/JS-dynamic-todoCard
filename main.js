@@ -3,8 +3,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser') // read ejs
 
-const Todorouter = require('./routes/todoRoute.js')
-const Userrouter = require('./routes/userRoute.js')
+const todoRouter = require('./routes/todoRoute.js') // Router
+const userRouter = require('./routes/userRoute.js') // Router
 
 const nodeSass = require('node-sass-middleware')
 require('dotenv').config()
@@ -15,8 +15,8 @@ const app = express()
 app.use( express.json() ) // middleware for json data (postman, react...)
 app.use( bodyParser.urlencoded({ extended: false})) // for html data
 
-app.use('/', Todorouter)
-app.use('/register', Userrouter)
+app.use('/', todoRouter) // Router
+app.use('/', userRouter) // Router
 
 app.set( 'view engine', 'ejs') // views
 app.use( express.static( "/public" ) );
@@ -27,7 +27,7 @@ app.use(nodeSass({
     outputStyle: 'compressed'
     }), express.static(__dirname + '/public'))
 
-    
+
 //CONNECT TO MONGO DATABASE
 mongoose.connect(process.env.DB_MONGO_URL, {
     useNewUrlParser: true,

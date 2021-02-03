@@ -10,7 +10,11 @@
     <title>Todo Card</title>
 </head>
 <body>
-    <h1 class="head-text">The Todo Card</h1>
+    <div class="head-bar">
+        <h1 class="head-text">The Todo Card</h1>
+        <a href="/register">register</a>
+        <a href="/login">login</a>
+    </div>
 
     <div class="container">
        <div class="column" >
@@ -30,15 +34,12 @@
 
                     <div class="status">
                         <a href="/todo/<%=todos[i]._id%>">
-                            <input type="radio" id="todo<%=todos[i]._id%>" name="tasks[<%=todos[i]._id%>].status" value="todo" checked>
                             <label class="todo" for="todo<%=todos[i]._id%>" a href="/todo/<%=todos[i]._id%>"></label>
                         </a>
                         <a href="/doing/<%=todos[i]._id%>">
-                            <input type="radio" id="doing<%=todos[i]._id%>" name="tasks[<%=todos[i]._id%>].status" value="doing">
                             <label class="doing" for="doing<%=todos[i]._id%>" a href="/doing/<%=todos[i]._id%>"></label>
                         </a>
                         <a href="/done/<%=todos[i]._id%>">
-                            <input type="radio" id="done<%=todos[i]._id%>" name="tasks[<%=todos[i]._id%>].status" value="done">
                             <label class="done" for="done<%=todos[i]._id%>" a href="/done/<%=todos[i]._id%>"></label>
                         </a>
                     </div>
@@ -66,15 +67,12 @@
     
                         <div class="status">
                             <a href="/todo/<%=doings[i]._id%>">
-                                <input type="radio" id="todo<%=doings[i]._id%>" name="tasks[<%=doings[i]._id%>].status" value="todo" checked>
                                 <label class="todo" for="todo<%=doings[i]._id%>" a href="/todo/<%=doings[i]._id%>"></label>
                             </a>
-                            <a href="/doing/<%=doings[i]._id%>">
-                                <input type="radio" id="doing<%=doings[i]._id%>" name="tasks[<%=doings[i]._id%>].status" value="doing">
+                            <a href="/doing/<%=doings[i]._id%>"> 
                                 <label class="doing" for="doing<%=doings[i]._id%>" a href="/doing/<%=doings[i]._id%>"></label>
                             </a>
                             <a href="/done/<%=doings[i]._id%>">
-                                <input type="radio" id="done<%=doings[i]._id%>" name="tasks[<%=doings[i]._id%>].status" value="done">
                                 <label class="done" for="done<%=doings[i]._id%>" a href="/done/<%=doings[i]._id%>"></label>
                             </a>
                         </div>
@@ -101,15 +99,12 @@
     
                         <div class="status">
                             <a href="/todo/<%=dones[i]._id%>">
-                                <input type="radio" id="todo<%=dones[i]._id%>" name="tasks[<%=dones[i]._id%>].status" value="todo" checked>
                                 <label class="todo" for="todo<%=dones[i]._id%>" a href="/todo/<%=dones[i]._id%>"></label>
                             </a>
-                            <a href="/doing/<%=dones[i]._id%>">
-                                <input type="radio" id="doing<%=dones[i]._id%>" name="tasks[<%=dones[i]._id%>].status" value="doing">
+                            <a href="/doing/<%=dones[i]._id%>">  
                                 <label class="doing" for="doing<%=dones[i]._id%>" a href="/doing/<%=dones[i]._id%>"></label>
                             </a>
                             <a href="/done/<%=dones[i]._id%>">
-                                <input type="radio" id="done<%=dones[i]._id%>" name="tasks[<%=dones[i]._id%>].status" value="done">
                                 <label class="done" for="done<%=dones[i]._id%>" a href="/done/<%=dones[i]._id%>"></label>
                             </a>
                         </div>
@@ -119,5 +114,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>
