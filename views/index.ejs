@@ -54,8 +54,8 @@
                 </div> <!--To show some data, need to use = after % for EJS--> 
             <%}%>
                 
-            <% if(viewNr !== viewShown/totalShowPerTime) { %>
-                <a class = "show" href="/?viewCount=<%=(viewShown/totalShowPerTime)+1%>">Show more</a>
+            <% if(viewCount !== taskToShow/nrTaskShowPerTime) { %>
+                <a class = "show" href="/?view=<%=(taskToShow/nrTaskShowPerTime)+1%>">Show more</a>
             <% } else { %>
                 <a class = "show" href="/?view=1">Show less</a>
             <% } %>
