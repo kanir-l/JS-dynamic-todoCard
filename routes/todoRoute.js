@@ -5,20 +5,35 @@ const router = express.Router() // mini app
 // GET REQUEST - READ ON THE BROWSER BY EJS AND DATABASE (index.ejs)
 router.get('/', async (req, res)=>{
 
-        const sorting = +req.query.page;
+        const viewCount = +req.query.viewCount || 1 //Pagination
+        const page = +req.query.page || 1 //Sort
 
     try{
-        const allTask = await todoCard.find().sort( {date: sorting} )
-        const todos = allTask.filter((card)=>card.status==="todo")
-        const doings = allTask.filter((card)=>card.status==="doing")
-        const dones = allTask.filter((card)=>card.status==="done")
-        res.render('index.ejs', {todos: todos, doings: doings, dones: dones, error:" "})
+
+        const totalTask = await todoCard.find().countDocuments()
+        const totalShowPerTime = 2
+        const viewNr = Math.ceil(totalTask / totalShowPerTime)
+        const viewShown = totalShowPerTime * viewCount
+
+        const allTodo = await todoCard.find( {status: "todo"} ).sort( {date: page} ).limit(totalShowPerTime + viewCount)
+        const allDoing = await todoCard.find( {status: "doing"} ).sort( {date: page} )
+        const allDone = await todoCard.find( {status: "done"} ).sort( {date: page} )
+        const todos = allTodo.filter((card)=>card.status==="todo")
+        const doings = allDoing.filter((card)=>card.status==="doing")
+        const dones = allDone.filter((card)=>card.status==="done")
+
+       
+       
+
+        res.render('index.ejs', {viewCount, totalTask, allTodo, allDoing, allDone, totalTask, viewNr, viewShown, totalShowPerTime, error:" ", todos: todos, doings: doings, dones: dones, error:" "})
     }  
     catch(err){
         const error = err
         res.render('error.ejs', {error: error})
     }
 }) 
+
+
 
 // POST REQUEST - WRITE ON THE BROWSER BY EJS (addtask.ejs)
 router.post('/', async (req, res)=>{
