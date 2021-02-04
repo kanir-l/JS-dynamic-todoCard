@@ -1,5 +1,6 @@
 body {
     font-family: 'Raleway', sans-serif;
+    background: #999999; 
     margin: 0;
 
     .head-bar {
@@ -11,6 +12,28 @@ body {
         align-items: center;
         padding: 10px;
         box-sizing: border-box;
+
+        .sorting {
+            width: 600px;
+            
+            button {
+                background: #ffffff;
+                border-radius: 50px;
+                border: 1px solid #3f3f3f;
+
+                a {
+                    font-family: 'Raleway', sans-serif;
+                    text-decoration: none;
+                    color: #3f3f3f;
+                    padding: 10px;
+                    border: none;
+                }
+            }
+
+            button:focus-within {
+                background: #999999;
+            }
+        }
 
         h1.head-text {
             width: 45%;

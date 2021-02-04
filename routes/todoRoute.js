@@ -1,15 +1,17 @@
 const express = require('express')
-
 const todoCard = require('../models/cardSchema.js')
 const router = express.Router() // mini app
 
 // GET REQUEST - READ ON THE BROWSER BY EJS AND DATABASE (index.ejs)
 router.get('/', async (req, res)=>{
+
+        const sorting = +req.query.page;
+
     try{
-        const data = await todoCard.find()
-        const todos = data.filter((card)=>card.status==="todo")
-        const doings = data.filter((card)=>card.status==="doing")
-        const dones = data.filter((card)=>card.status==="done")
+        const allTask = await todoCard.find().sort( {date: sorting} )
+        const todos = allTask.filter((card)=>card.status==="todo")
+        const doings = allTask.filter((card)=>card.status==="doing")
+        const dones = allTask.filter((card)=>card.status==="done")
         res.render('index.ejs', {todos: todos, doings: doings, dones: dones, error:" "})
     }  
     catch(err){
