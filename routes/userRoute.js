@@ -1,6 +1,5 @@
 const express = require('express')
 const bcrypt = require('bcrypt') // hash lösenord
-
 const userSet = require('../models/userSchema.js')
 const router = express.Router() // mini app
 
