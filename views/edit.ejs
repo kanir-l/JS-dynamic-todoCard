@@ -11,125 +11,126 @@
 </head>
 <body>
     <div class="cover">
-    <div class="head-bar">
+        <div class="head-bar">
 
-        <div class="sorting">
-            <button type="button"><a href="/?page=1">Oldest to Latest</a></button>
-            <button type="button"><a href="/?page=-1">Latest to Oldest</a></button>
-        </div>
-
-        <h1 class="head-text">The Todo Card</h1>
-        <a href="/register">register</a>
-        <a href="/login">login</a>
-    </div>
-
-    <div class="container">
-
-       <div class="column" >
-            <h2 class="topic-text">Todo</h2>
-
-            <div class="todo-container">
-            <%for(let i=0; i<todos.length; i++) {%>
-                <div class="task-card">
-                    <p class="task-name <%= todos[i].task.class %> ">
-                        <%= todos[i].task %>
-                    </p>
-                
-                    <div class="edit-delete">
-                        <a href="/edit/<%=todos[i]._id%>" class=“edit-button”><img src="/img/edit_icon.png"></a>
-                        <a href="/delete/<%=todos[i]._id%>" class="delete-button"><img src="/img/delete_icon.png"></a>
-                    </div>
-
-                    <div class="status">
-                        <a href="/todo/<%=todos[i]._id%>">
-                            <label class="todo" for="todo<%=todos[i]._id%>" a href="/todo/<%=todos[i]._id%>"></label>
-                        </a>
-                        <a href="/doing/<%=todos[i]._id%>">
-                            <label class="doing" for="doing<%=todos[i]._id%>" a href="/doing/<%=todos[i]._id%>"></label>
-                        </a>
-                        <a href="/done/<%=todos[i]._id%>">
-                            <label class="done" for="done<%=todos[i]._id%>" a href="/done/<%=todos[i]._id%>"></label>
-                        </a>
-                    </div>
-                    
-                </div> <!--To show some data, need to use = after % for EJS--> 
-            <%}%>
-                
-            <% if(viewCount !== taskToShow/nrTaskShowPerTime) { %>
-                <a class = "show" href="/?view=<%=(taskToShow/nrTaskShowPerTime)+1%>">Show more</a>
-            <% } else { %>
-                <a class = "show" href="/?view=1">Show less</a>
-            <% } %>
-            
+            <div class="sorting">
+                <button type="button"><a href="/?page=1">Oldest to Latest</a></button>
+                <button type="button"><a href="/?page=-1">Latest to Oldest</a></button>
             </div>
-            <%- include('addtask.ejs') %><!--To import some other file, need to use - after % for EJS-->
-            <%- include('error.ejs')%> <!--To import some other file, need to use - after % for EJS-->
+
+            <h1 class="head-text">The Todo Card</h1>
+            <a href="/register">register</a>
+            <a href="/login">login</a>
         </div>
 
-        <div class="column">
-            <h2 class="topic-text">Doing</h2>
-            <div class="doing-container">
-                <%for(let i=0; i<doings.length; i++) {%>
+        <div class="container">
+
+        <div class="column" >
+                <h2 class="topic-text">Todo</h2>
+
+                <div class="todo-container">
+                <%for(let i=0; i<todos.length; i++) {%>
                     <div class="task-card">
-                        <p class="task-name <%= doings[i].task.class %> ">
-                            <%= doings[i].task %>
+                        <p class="task-name <%= todos[i].task.class %> ">
+                            <%= todos[i].task %>
                         </p>
                     
                         <div class="edit-delete">
-                            <a href="/edit/<%=doings[i]._id%>" class=“edit-button”><img src="/img/edit_icon.png"></a>
-                            <a href="/delete/<%=doings[i]._id%>" class="delete-button"><img src="/img/delete_icon.png"></a>
+                            <a href="/edit/<%=todos[i]._id%>" class=“edit-button”><img src="/img/edit_icon.png"></a>
+                            <a href="/delete/<%=todos[i]._id%>" class="delete-button"><img src="/img/delete_icon.png"></a>
                         </div>
-    
+
                         <div class="status">
-                            <a href="/todo/<%=doings[i]._id%>">
-                                <label class="todo" for="todo<%=doings[i]._id%>" a href="/todo/<%=doings[i]._id%>"></label>
+                            <a href="/todo/<%=todos[i]._id%>">
+                                <label class="todo" for="todo<%=todos[i]._id%>" a href="/todo/<%=todos[i]._id%>"></label>
                             </a>
-                            <a href="/doing/<%=doings[i]._id%>"> 
-                                <label class="doing" for="doing<%=doings[i]._id%>" a href="/doing/<%=doings[i]._id%>"></label>
+                            <a href="/doing/<%=todos[i]._id%>">
+                                <label class="doing" for="doing<%=todos[i]._id%>" a href="/doing/<%=todos[i]._id%>"></label>
                             </a>
-                            <a href="/done/<%=doings[i]._id%>">
-                                <label class="done" for="done<%=doings[i]._id%>" a href="/done/<%=doings[i]._id%>"></label>
+                            <a href="/done/<%=todos[i]._id%>">
+                                <label class="done" for="done<%=todos[i]._id%>" a href="/done/<%=todos[i]._id%>"></label>
                             </a>
                         </div>
                         
                     </div> <!--To show some data, need to use = after % for EJS--> 
                 <%}%>
-            </div>
-        </div>
-    
-
-        <div class="column">
-            <h2 class="topic-text">Done</h2>
-            <div class="done-container">
-                <%for(let i=0; i<dones.length; i++) {%>
-                    <div class="task-card">
-                        <p class="task-name <%= dones[i].task.class %> ">
-                            <%= dones[i].task %>
-                        </p>
                     
-                        <div class="edit-delete">
-                            <a href="/edit/<%=dones[i]._id%>" class=“edit-button”><img src="/img/edit_icon.png"></a>
-                            <a href="/delete/<%=dones[i]._id%>" class="delete-button"><img src="/img/delete_icon.png"></a>
-                        </div>
-    
-                        <div class="status">
-                            <a href="/todo/<%=dones[i]._id%>">
-                                <label class="todo" for="todo<%=dones[i]._id%>" a href="/todo/<%=dones[i]._id%>"></label>
-                            </a>
-                            <a href="/doing/<%=dones[i]._id%>">  
-                                <label class="doing" for="doing<%=dones[i]._id%>" a href="/doing/<%=dones[i]._id%>"></label>
-                            </a>
-                            <a href="/done/<%=dones[i]._id%>">
-                                <label class="done" for="done<%=dones[i]._id%>" a href="/done/<%=dones[i]._id%>"></label>
-                            </a>
-                        </div>
+                <% if(viewCount !== taskToShow/nrTaskShowPerTime) { %>
+                    <a class = "show" href="/?view=<%=(taskToShow/nrTaskShowPerTime)+1%>">Show more</a>
+                <% } else { %>
+                    <a class = "show" href="/?view=1">Show less</a>
+                <% } %>
+                
+                </div>
+                <%- include('addtask.ejs') %><!--To import some other file, need to use - after % for EJS-->
+                <%- include('error.ejs')%> <!--To import some other file, need to use - after % for EJS-->
+            </div>
+
+            <div class="column">
+                <h2 class="topic-text">Doing</h2>
+                <div class="doing-container">
+                    <%for(let i=0; i<doings.length; i++) {%>
+                        <div class="task-card">
+                            <p class="task-name <%= doings[i].task.class %> ">
+                                <%= doings[i].task %>
+                            </p>
                         
-                    </div> <!--To show some data, need to use = after % for EJS--> 
-                <%}%>
+                            <div class="edit-delete">
+                                <a href="/edit/<%=doings[i]._id%>" class=“edit-button”><img src="/img/edit_icon.png"></a>
+                                <a href="/delete/<%=doings[i]._id%>" class="delete-button"><img src="/img/delete_icon.png"></a>
+                            </div>
+        
+                            <div class="status">
+                                <a href="/todo/<%=doings[i]._id%>">
+                                    <label class="todo" for="todo<%=doings[i]._id%>" a href="/todo/<%=doings[i]._id%>"></label>
+                                </a>
+                                <a href="/doing/<%=doings[i]._id%>"> 
+                                    <label class="doing" for="doing<%=doings[i]._id%>" a href="/doing/<%=doings[i]._id%>"></label>
+                                </a>
+                                <a href="/done/<%=doings[i]._id%>">
+                                    <label class="done" for="done<%=doings[i]._id%>" a href="/done/<%=doings[i]._id%>"></label>
+                                </a>
+                            </div>
+                            
+                        </div> <!--To show some data, need to use = after % for EJS--> 
+                    <%}%>
+                </div>
+            </div>
+        
+
+            <div class="column">
+                <h2 class="topic-text">Done</h2>
+                <div class="done-container">
+                    <%for(let i=0; i<dones.length; i++) {%>
+                        <div class="task-card">
+                            <p class="task-name <%= dones[i].task.class %> ">
+                                <%= dones[i].task %>
+                            </p>
+                        
+                            <div class="edit-delete">
+                                <a href="/edit/<%=dones[i]._id%>" class=“edit-button”><img src="/img/edit_icon.png"></a>
+                                <a href="/delete/<%=dones[i]._id%>" class="delete-button"><img src="/img/delete_icon.png"></a>
+                            </div>
+        
+                            <div class="status">
+                                <a href="/todo/<%=dones[i]._id%>">
+                                    <label class="todo" for="todo<%=dones[i]._id%>" a href="/todo/<%=dones[i]._id%>"></label>
+                                </a>
+                                <a href="/doing/<%=dones[i]._id%>">  
+                                    <label class="doing" for="doing<%=dones[i]._id%>" a href="/doing/<%=dones[i]._id%>"></label>
+                                </a>
+                                <a href="/done/<%=dones[i]._id%>">
+                                    <label class="done" for="done<%=dones[i]._id%>" a href="/done/<%=dones[i]._id%>"></label>
+                                </a>
+                            </div>
+                            
+                        </div> <!--To show some data, need to use = after % for EJS--> 
+                    <%}%>
+                </div>
             </div>
         </div>
     </div>
-    </div>
+
     <div class="edit-modal">
         <h2>Edit your task</h2>
         <form action="/edit/<%= editData._id %>" method="post">
