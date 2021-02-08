@@ -31,6 +31,79 @@ router.get('/', async (req, res)=>{
     }
 }) 
 
+
+// POST REQUEST - WRITE ON THE BROWSER BY EJS (addtask.ejs)
+router.post('/', async (req, res)=>{
+    try {
+        await new todoCard({
+            task: req.body.task
+        }).save()
+
+        res.redirect('/')
+    }
+    catch(err){
+        const error = err
+        res.render('error.ejs', {error: error})
+    }
+})
+
+// GET(EDIT) REQUEST - EDIT DATA FROM EDIT PAGE:ID
+router.get('/edit/:id', async (req, res)=>{
+    try{
+        const editData = await todoCard.findOne({_id: req.params.id})
+
+        const view = +req.query.view || 1 //Pagination
+        const page = +req.query.page || 1 //Sort
+
+        const totalTask = await todoCard.find().countDocuments()
+        const nrTaskShowPerTime = 3 
+        const viewCount = Math.ceil(totalTask / nrTaskShowPerTime) 
+        const taskToShow = nrTaskShowPerTime * view
+        
+        const allTodo = await todoCard.find( {status: "todo"} ).sort( {date: page} ).limit(taskToShow)
+        const allDoing = await todoCard.find( {status: "doing"} ).sort( {date: page} )
+        const allDone = await todoCard.find( {status: "done"} ).sort( {date: page} )
+
+        const todos = allTodo.filter((card)=>card.status==="todo")
+        const doings = allDoing.filter((card)=>card.status==="doing")
+        const dones = allDone.filter((card)=>card.status==="done")
+
+        res.render('edit.ejs', {view, page, allTodo, allDoing, allDone,totalTask, nrTaskShowPerTime, viewCount, taskToShow, error:" ", todos: todos, doings: doings, dones: dones, error:" ", editData: editData})
+    }  
+    catch(err){
+        const error = err
+        res.render('error.ejs', {error: error})
+    }
+}) 
+
+// POST(EDIT) REQUEST - SAVE THE EDIT PAGE:ID TO REDIRECT BACK TO THE /
+router.post('/edit/:id', async (req, res)=>{
+    try {
+        await todoCard.updateOne({_id: req.params.id}, {
+            $set: {
+                task: req.body.task
+            }
+        })
+        res.redirect('/')
+    }
+    catch(err){
+        const error = err
+        res.render('error.ejs', {error: error})
+    }
+}) 
+
+// GET(DELETE) REQUEST - DELETE DATA FROM DELETE PAGE:ID AND REDIRECT BACK TO THE /
+router.get('/delete/:id', async (req, res)=>{
+    try{
+        await todoCard.deleteOne({_id: req.params.id})
+        res.redirect('/')
+    }  
+    catch(err){
+        const error = err
+        res.render('error.ejs', {error: error})
+    }
+}) 
+
 // Status 
 // GET REQUEST - CLINK ON Todo STATUS LINK
 router.get('/todo/:id', async (req, res)=>{
@@ -74,61 +147,6 @@ router.get('/done/:id', async (req, res)=>{
         })
         res.redirect('/')
     }
-    catch(err){
-        const error = err
-        res.render('error.ejs', {error: error})
-    }
-}) 
-
-// POST REQUEST - WRITE ON THE BROWSER BY EJS (addtask.ejs)
-router.post('/', async (req, res)=>{
-    try {
-        await new todoCard({
-            task: req.body.task
-        }).save()
-
-        res.redirect('/')
-    }
-    catch(err){
-        const error = err
-        res.render('error.ejs', {error: error})
-    }
-})
-
-// GET(EDIT) REQUEST - EDIT DATA FROM EDIT PAGE:ID
-router.get('/edit/:id', async (req, res)=>{
-    try{
-        const editTask = await todoCard.findOne({_id: req.params.id})
-        res.render('edit.ejs', {editTask: editTask})
-    }  
-    catch(err){
-        const error = err
-        res.render('error.ejs', {error: error})
-    }
-}) 
-
-// POST(EDIT) REQUEST - SAVE THE EDIT PAGE:ID TO REDIRECT BACK TO THE /
-router.post('/edit/:id', async (req, res)=>{
-    try {
-        await todoCard.updateOne({_id: req.params.id}, {
-            $set: {
-                task: req.body.task
-            }
-        })
-        res.redirect('/')
-    }
-    catch(err){
-        const error = err
-        res.render('error.ejs', {error: error})
-    }
-}) 
-
-// GET(DELETE) REQUEST - DELETE DATA FROM DELETE PAGE:ID AND REDIRECT BACK TO THE /
-router.get('/delete/:id', async (req, res)=>{
-    try{
-        await todoCard.deleteOne({_id: req.params.id})
-        res.redirect('/')
-    }  
     catch(err){
         const error = err
         res.render('error.ejs', {error: error})
