@@ -1,17 +1,54 @@
 body {
-
-    background: #f3f3f3;
-    font-family: 'Mallanna', sans-serif;
+    font-family: 'Raleway', sans-serif;
+    background: #999999; 
     margin: 0;
 
-    h1.head-text {
-        font-size: 24px;
+    .head-bar {
+        width: 100%;
         height: 60px;
-        line-height: 60px;
-        color: #ffffff;
         background: #3f3f3f;
-        text-align: center;
-        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        box-sizing: border-box;
+
+        .sorting {
+            width: 600px;
+            
+            button {
+                background: #ffffff;
+                border-radius: 50px;
+                border: 1px solid #3f3f3f;
+
+                a {
+                    font-family: 'Raleway', sans-serif;
+                    text-decoration: none;
+                    color: #3f3f3f;
+                    padding: 10px;
+                    border: none;
+                }
+            }
+
+            button:focus-within {
+                background: #999999;
+            }
+        }
+
+        h1.head-text {
+            width: 45%;
+            color: #ffffff;
+            font-size: 24px;
+            margin: 0;  
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #ffffff; 
+            padding: 10px;
+            border-left: 1px solid #ffffff;
+        }
     }
 
     h2.topic-text {
@@ -19,8 +56,8 @@ body {
         width: 100%;
         height: 60px;
         line-height: 60px;
-        color: #888888;   
-        background: #f3f3f3;   
+        color: #ffffff;   
+        background: #999999;   
         text-align: center;
         margin: 0;
     }
@@ -34,25 +71,26 @@ body {
 
     .container {
         width: 100%;
-        height: 100vh;
+        height: 90vh;
         display: flex;
-        background: #f3f3f3; 
+        background: #999999; 
         
-        .alltask-container {
+        .todo-container, .doing-container, .done-container {
             width: 90%;
-            max-height: 60vh;
+            max-height: 80vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 20px;
+            margin: 0px 20px 20px 20px;
             padding:20px 0 20px 0;
-            border-top: 10px solid #c92e48;
+            background: #3f3f3f;
+            border-top: 10px solid #ca485e;
+            border-radius: 10px;
             overflow-x: hidden; 
             overflow-y: auto; 
 
             .task-card {
                 width: 80%;
-                min-height: 120px;
                 border: 1px solid #888888; 
                 border-radius: 10px;  
                 margin: 10px;
@@ -60,40 +98,82 @@ body {
                 .task-name {
                     font-size: 16px;
                     color: #888888;
+                    border-bottom: 1px solid #888888;
+                    padding-bottom: 10px;
                     margin-left: 10px;
+                    margin-right: 10px;
                 }
 
-                a.edit-button {
-                    color: #000000;
+                .edit-delete {
+                    text-align: end;
+                    margin-right: 10px;
+            
+                    img {
+                        width: 20px;
+                    }
                 }
+
+                .status {
+                    height: 30px;
+                    text-align: start;
+                    margin-left: 10px;
+
+                    a {
+                        text-decoration: none;
+                    }
+
+                    .todo {
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50px;
+                        background: #ca485e;
+                        color: #ca485e;
+                    }
+                  
+                    .doing {
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50px;
+                        background: #ec6002;
+                        color: #ec6002;
+                    }
+
+                    .done {
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50px;
+                        background: #22d6a9;
+                        color: #22d6a9;
+                    }
+
+                    .todo:hover, .doing:hover, .done:hover {
+                        opacity: 0.6;
+                    }
+                }
+
             }
+
+            a.show {
+                text-decoration: none;   
+                width: 80%;
+                text-align: center;
+                background: #ffffff;
+                color: #3f3f3f;
+                border-radius: 10px;
+                margin: 20px 0 20px 0;
+            }
+
         }
 
-        .inprocess-container {
-            width: 90%;
-            max-height: 100vh;
-            border-top: 10px solid #f34f39;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
-            padding:20px 0 20px 0;
-            overflow-x: hidden; 
-            overflow-y: auto; 
+        .doing-container {
+            border-top: 10px solid #ec6002;
         }
 
-        .finished-container {
-            width: 90%;
-            max-height: 100vh;
-            border-top: 10px solid #22d6be;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
-            padding:20px 0 20px 0;
-            overflow-x: hidden; 
-            overflow-y: auto; 
-
+        .done-container {
+            border-top: 10px solid #22d6a9;
 
             h2.topic-text {
                 font-size: 20px;
@@ -107,5 +187,58 @@ body {
                 margin: 0;
             }
         }
+
     }
+
+    //Edit Box
+    .edit-modal {
+        background: #3f3f3f;
+        width: 600px;
+        height: 200px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 30vh;
+        left: 30%;
+      
+        h2 {
+            margin-right: 360px;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        input {
+            background: #888888;
+            border: none;
+            border-radius: 10px;
+            width: 600px;
+            height: 45px;
+            font-family: 'Raleway', sans-serif;
+            padding: 10px;
+            margin: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            color: white;
+            background: #008000;
+            width: 200px;
+            height: 45px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Raleway', sans-serif;
+            margin: 10px;
+        }
+    }
+}
+
+.cover {
+    width: 100%;
+    height: 100vh;
+    background: #000000;
+    opacity: 0.3;
 }
