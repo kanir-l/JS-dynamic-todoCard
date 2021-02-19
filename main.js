@@ -1,22 +1,16 @@
-//Call in
 const express = require('express')
 const mongoose = require('mongoose')
-
-const bodyParser = require('body-parser') // read ejs
+const cookieParser = require('cookie-parser')
 const nodeSass = require('node-sass-middleware')
-
+const todoRoute = require('./routes/todoRoute.js') // Router
+const userRoute = require('./routes/userRoute.js') // Router
 require('dotenv').config()
 
-const todoRouter = require('./routes/todoRoute.js') // Router
-const userRouter = require('./routes/userRoute.js') // Router
-
-
-//Use it
 const app = express()
 app.use( express.json() ) // middleware for json data (postman, react...)
-app.use( bodyParser.urlencoded({ extended: false})) // for html data
-
 app.set( 'view engine', 'ejs') // views
+app.use(express.urlencoded( { extended: false} )) // for html data
+app.use( cookieParser() )
 app.use( express.static( "/public" ) );
 app.use(nodeSass({
     src: __dirname + '/sass',
@@ -24,19 +18,24 @@ app.use(nodeSass({
     debug: true,
     outputStyle: 'compressed'
     }), express.static(__dirname + '/public'))
+app.use(todoRoute) // Router
+app.use(userRoute) // Router
 
-app.use('/', todoRouter) // Router
-app.use('/', userRouter) // Router
-
-
-//CONNECT TO MONGO DATABASE
-mongoose.connect(process.env.DB_MONGO_URL, {
+// CONNECT TO MONGO DATABASE
+const options = {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-}, (err)=> {
-    if(err) return
-    app.listen(8000, ()=>{
-        console.log("App is set")
-    })
+    useUnifiedTopology: true, 
+    useFindAndModify: false,
+    useCreateIndex: true
+}
+
+mongoose.connect(process.env.DB_MONGO_URL, options, (err) => {
+    if(err) {
+        console.log(err)
+        return
+    }
+        app.listen(8000, () => {
+            console.log("TodoCard App is set")
+        })
 })
 

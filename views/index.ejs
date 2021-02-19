@@ -18,8 +18,9 @@
         </div>
 
         <h1 class="head-text">The Todo Card</h1>
-        <a href="/register">register</a>
-        <a href="/login">login</a>
+        <!--<a href="/register">register</a>
+        <a href="/login">login</a>-->
+        <a href="/logout">logout</a>
     </div>
 
     <div class="container">
@@ -62,6 +63,9 @@
             
             </div>
             <%- include('addtask.ejs') %><!--To import some other file, need to use - after % for EJS-->
+            <% if (successText) { %>
+                <p class="success-text" style="color: #ffffff; background: #26b645; padding: 10px">Task added</p>
+            <% } %>
             <%- include('error.ejs')%> <!--To import some other file, need to use - after % for EJS-->
         </div>
 
