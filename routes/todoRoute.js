@@ -1,112 +1,20 @@
 const express = require('express')
 const todoCard = require('../models/cardSchema.js')
-const router = express.Router() // mini app
+const router = express.Router()
+const verifyToken = require('../middleware/verifyUser')
+const {todoShow, todoAdd, todoEditGet, todoEditPost, todoDelete} = require('../controllers/todoControl.js')
 
-// GET REQUEST - READ ON THE BROWSER BY EJS AND DATABASE (index.ejs)
-router.get('/', async (req, res)=>{
+// TODO SHOW AND ADD
+router.get('/', verifyToken, todoShow) 
+router.post('/', verifyToken, todoAdd) 
+// TODO GET EDIT AND POST EDIT
+router.get('/edit/:id', verifyToken, todoEditGet)
+router.post('/edit/:id', verifyToken, todoEditPost)
+// TODO DELETE
+router.get('/delete/:id', verifyToken, todoDelete)
 
-        const view = +req.query.view || 1 //Pagination
-        const page = +req.query.page || 1 //Sort
-
-    try{
-
-        const totalTask = await todoCard.find().countDocuments()
-        const nrTaskShowPerTime = 3 
-        const viewCount = Math.ceil(totalTask / nrTaskShowPerTime) 
-        const taskToShow = nrTaskShowPerTime * view
-        
-        const allTodo = await todoCard.find( {status: "todo"} ).sort( {date: page} ).limit(taskToShow)
-        const allDoing = await todoCard.find( {status: "doing"} ).sort( {date: page} )
-        const allDone = await todoCard.find( {status: "done"} ).sort( {date: page} )
-
-        const todos = allTodo.filter((card)=>card.status==="todo")
-        const doings = allDoing.filter((card)=>card.status==="doing")
-        const dones = allDone.filter((card)=>card.status==="done")
-
-        res.render('index.ejs', {view, page, allTodo, allDoing, allDone,totalTask, nrTaskShowPerTime, viewCount, taskToShow, error:" ", todos: todos, doings: doings, dones: dones, error:" "})
-    }  
-    catch(err){
-        const error = err
-        res.render('error.ejs', {error: error})
-    }
-}) 
-
-
-// POST REQUEST - WRITE ON THE BROWSER BY EJS (addtask.ejs)
-router.post('/', async (req, res)=>{
-    try {
-        await new todoCard({
-            task: req.body.task
-        }).save()
-
-        res.redirect('/')
-    }
-    catch(err){
-        const error = err
-        res.render('error.ejs', {error: error})
-    }
-})
-
-// GET(EDIT) REQUEST - EDIT DATA FROM EDIT PAGE:ID
-router.get('/edit/:id', async (req, res)=>{
-    try{
-        const editData = await todoCard.findOne({_id: req.params.id})
-
-        const view = +req.query.view || 1 //Pagination
-        const page = +req.query.page || 1 //Sort
-
-        const totalTask = await todoCard.find().countDocuments()
-        const nrTaskShowPerTime = 3 
-        const viewCount = Math.ceil(totalTask / nrTaskShowPerTime) 
-        const taskToShow = nrTaskShowPerTime * view
-        
-        const allTodo = await todoCard.find( {status: "todo"} ).sort( {date: page} ).limit(taskToShow)
-        const allDoing = await todoCard.find( {status: "doing"} ).sort( {date: page} )
-        const allDone = await todoCard.find( {status: "done"} ).sort( {date: page} )
-
-        const todos = allTodo.filter((card)=>card.status==="todo")
-        const doings = allDoing.filter((card)=>card.status==="doing")
-        const dones = allDone.filter((card)=>card.status==="done")
-
-        res.render('edit.ejs', {view, page, allTodo, allDoing, allDone,totalTask, nrTaskShowPerTime, viewCount, taskToShow, error:" ", todos: todos, doings: doings, dones: dones, error:" ", editData: editData})
-    }  
-    catch(err){
-        const error = err
-        res.render('error.ejs', {error: error})
-    }
-}) 
-
-// POST(EDIT) REQUEST - SAVE THE EDIT PAGE:ID TO REDIRECT BACK TO THE /
-router.post('/edit/:id', async (req, res)=>{
-    try {
-        await todoCard.updateOne({_id: req.params.id}, {
-            $set: {
-                task: req.body.task
-            }
-        })
-        res.redirect('/')
-    }
-    catch(err){
-        const error = err
-        res.render('error.ejs', {error: error})
-    }
-}) 
-
-// GET(DELETE) REQUEST - DELETE DATA FROM DELETE PAGE:ID AND REDIRECT BACK TO THE /
-router.get('/delete/:id', async (req, res)=>{
-    try{
-        await todoCard.deleteOne({_id: req.params.id})
-        res.redirect('/')
-    }  
-    catch(err){
-        const error = err
-        res.render('error.ejs', {error: error})
-    }
-}) 
-
-// Status 
-// GET REQUEST - CLINK ON Todo STATUS LINK
-router.get('/todo/:id', async (req, res)=>{
+// TODO STATUS
+router.get('/todo/:id', verifyToken, async (req, res)=>{
     try {
         await todoCard.updateOne({_id: req.params.id}, {
             $set: {
@@ -121,8 +29,7 @@ router.get('/todo/:id', async (req, res)=>{
     }
 }) 
 
-// GET REQUEST - CLINK ON Doing STATUS LINK
-router.get('/doing/:id', async (req, res)=>{
+router.get('/doing/:id', verifyToken, async (req, res)=>{
     try {
         await todoCard.updateOne({_id: req.params.id}, {
             $set: {
@@ -137,8 +44,7 @@ router.get('/doing/:id', async (req, res)=>{
     }
 }) 
 
-// GET REQUEST - CLINK ON Done STATUS LINK
-router.get('/done/:id', async (req, res)=>{
+router.get('/done/:id', verifyToken, async (req, res)=>{
     try {
         await todoCard.updateOne({_id: req.params.id}, {
             $set: {
@@ -152,5 +58,6 @@ router.get('/done/:id', async (req, res)=>{
         res.render('error.ejs', {error: error})
     }
 }) 
+
 
 module.exports = router
