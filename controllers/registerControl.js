@@ -26,6 +26,7 @@ const registerPosting = async (req, res) => {
     }
 }
 
+
 module.exports = {
     registerGetting,
     registerPosting

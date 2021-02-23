@@ -29,7 +29,12 @@ const loginPosting = async (req, res) => {
     return res.redirect('/login')
 } 
 
+const logingOut = async (req, res) => {
+    res.clearCookie('jwToken').redirect('/login')
+}
+
 module.exports = {
     loginGetting,
-    loginPosting
+    loginPosting,
+    logingOut
 }
