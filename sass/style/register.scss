@@ -1,7 +1,7 @@
 body {
     background: #3f3f3f;
-    font-family: 'Raleway', sans-serif;
     color: #ffffff;
+    font-family: 'Raleway', sans-serif;
 
     .register {
         display: flex;
@@ -16,6 +16,8 @@ body {
             border: none;
             border-radius: 10px;
             margin: 10px;
+            padding: 10px;
+            font-family: 'Raleway', sans-serif;
         }
 
         button {
@@ -26,6 +28,20 @@ body {
             border: none;
             border-radius: 10px;
             margin: 10px;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            height: 60px;
+            width: 30%;
+            text-align: center;
+            color: #ffffff;
+            border-top: 1px solid #ffffff;
+            margin-top: 20px;
+            padding-top: 20px;
+            font-family: 'Raleway', sans-serif;
         }
     }
 }
